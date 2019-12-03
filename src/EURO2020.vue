@@ -1,114 +1,92 @@
 <template>
   <div class="container" id="pool">
-     
-        <div class="row">
-            
-            <div class="col-12 text-center mt-4"> <button class="btn btn-success " v-if="!show" @click="pool">Kura Çek</button></div>
-            <div class="col-12 text-center mt-4"> <button class="btn btn-danger " v-if="show" @click="repool">Yeniden Kura Çek</button></div>
-
-          <div class="col-12 border mt-4 table bg-success d-none  d-md-inline" ><span class="text-white">POOL 1</span><span v-for="(item,i) in pool1" class="bg-secondary  rounded text-white p-2 mx-3 col-12" ><strong>{{i+1}}.{{item}} </strong></span></div>
-          <div class="col-12 border mt-4 table bg-primary d-none  d-md-inline" ><span class="text-white">POOL 2</span><span v-for="(item,i) in pool2" class="bg-secondary rounded text-white p-2 mx-3"><strong>{{i+1}}. {{item}} </strong></span></div>
-          <div class="col-12 border mt-4 table bg-danger d-none  d-md-inline" ><span class="text-white">POOL 3</span><span v-for="(item,i) in pool3" class="bg-secondary rounded text-white p-2 mx-3"><strong>{{i+1}}. {{item}} </strong></span></div>
-          <div class="col-12 border mt-4 table bg-warning d-none  d-md-inline" ><span class="text-white">POOL 4</span><span v-for="(item,i) in pool4" class="bg-secondary rounded text-white p-2 mx-3"><strong>{{i+1}}. {{item}} </strong></span></div>
-
-<div class="d-inline d-md-none">
-        <div class="col-12 border mt-4 table " ><span class="text-dark">POOL 1  Teams/ </span><span v-for="(item,i) in pool1" class="" ><strong>{{i+1}}.{{item}} </strong></span></div>
-        <div class="col-12 border mt-4 table  " ><span class="text-dark">POOL 2 Teams/ </span><span v-for="(item,i) in pool2" class=""><strong>{{i+1}}. {{item}} </strong></span></div>
-        <div class="col-12 border mt-4 table " ><span class="text-dark">POOL 3  Teams/ </span><span v-for="(item,i) in pool3" class=" "><strong>{{i+1}}. {{item}} </strong></span></div>
-        <div class="col-12 border mt-4 table  " ><span class="text-dark">POOL 4    Teams / </span><span v-for="(item,i) in pool4" class=" "><strong>{{i+1}}. {{item}} </strong></span></div>
-
-</div>
-
-          <div class="col-md-4 col-12   rounded kare mt-5" >
-                <div class="text-center bg-primary text-white rounded">Group A</div>
-                <table class="table table-striped mt-3"  >
-                    <tbody>
-                        <tr  v-for="(item,i) in GroupA">
-                            <td>{{i+1}}.</td>
-                            <td >{{item}}</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-4 col-12   rounded kare mt-5" >
-                    <div class="text-center bg-primary text-white rounded">Group B</div>
-                    <table class="table table-striped mt-3"  >
-                        <tbody>
-                            <tr  v-for="(item,i) in GroupB">
-                                <td>{{i+1}}.</td>
-                                <td >{{item}}</td>
-                            </tr>
     
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-4 col-12   rounded kare mt-5" >
-                        <div class="text-center bg-primary text-white rounded">Group C</div>
-                        <table class="table table-striped mt-3"   >
-                            <tbody>
-                                <tr v-for="(item,i) in GroupC">
-                                    <td>{{i+1}}.</td>
-                                    <td >{{item}}</td>
-                                </tr>
-        
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-4 col-12   rounded kare mt-5" >
-                            <div class="text-center bg-primary text-white rounded">Group D</div>
-                            <table class="table table-striped mt-3"  >
-                                <tbody>
-                                    <tr  v-for="(item,i) in GroupD">
-                                        <td>{{i+1}}.</td>
-                                        <td >{{item}}</td>
-                                    </tr>
-            
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-4 col-12   rounded kare mt-5" >
-                                <div class="text-center bg-primary text-white rounded">Group E</div>
-                                <table class="table table-striped mt-3"   >
-                                    <tbody>
-                                        <tr v-for="(item,i) in GroupE">
-                                            <td>{{i+1}}.</td>
-                                            <td >{{item}}</td>
-                                        </tr>
-                
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-4 col-12   rounded kare mt-5" >
-                                    <div class="text-center bg-primary text-white rounded">Group F</div>
-                                    <table class="table table-striped mt-3"  >
-                                        <tbody>
-                                            <tr  v-for="(item,i) in GroupF">
-                                                <td>{{i+1}}.</td>
-                                                <td >{{item}}</td>
-                                            </tr>
-                    
-                                        </tbody>
-                                    </table>
-                                </div>
-                               
-        
-         
-        </div>
+   <div class="col-12 text-center mt-4">
+        <button class="btn btn-danger" v-if="button"   @click="repool">Kurayı Sıfırla</button>
+      </div>    
+    <pool-section :name="title"  @Pool="pool()" @pool1="pool1=$event" @pool2="pool2=$event" @pool3="pool3=$event" @pool4="pool4=$event" ></pool-section>
+
+    <div class="row">
+      <div class="col-md-4 col-12 rounded kare mt-5">
+        <div class="text-center bg-primary text-white rounded">Group A</div>
+        <table class="table table-striped mt-3">
+          <tbody>
+            <tr v-for="(item,i) in GroupA">
+              <td>{{i+1}}.</td>
+              <td>{{item}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4 col-12 rounded kare mt-5">
+        <div class="text-center bg-primary text-white rounded">Group B</div>
+        <table class="table table-striped mt-3">
+          <tbody>
+            <tr v-for="(item,i) in GroupB">
+              <td>{{i+1}}.</td>
+              <td>{{item}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4 col-12 rounded kare mt-5">
+        <div class="text-center bg-primary text-white rounded">Group C</div>
+        <table class="table table-striped mt-3">
+          <tbody>
+            <tr v-for="(item,i) in GroupC">
+              <td>{{i+1}}.</td>
+              <td>{{item}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4 col-12 rounded kare mt-5">
+        <div class="text-center bg-primary text-white rounded">Group D</div>
+        <table class="table table-striped mt-3">
+          <tbody>
+            <tr v-for="(item,i) in GroupD">
+              <td>{{i+1}}.</td>
+              <td>{{item}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4 col-12 rounded kare mt-5">
+        <div class="text-center bg-primary text-white rounded">Group E</div>
+        <table class="table table-striped mt-3">
+          <tbody>
+            <tr v-for="(item,i) in GroupE">
+           
+              <td>{{i+1}}.</td>
+              <td>{{item}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4 col-12 rounded kare mt-5">
+        <div class="text-center bg-primary text-white rounded">Group F</div>
+        <table class="table table-striped mt-3">
+          <tbody>
+            <tr v-for="(item,i) in GroupF">
+              <td>{{i+1}}.</td>
+              <td>{{item}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    
+  </div>
 </template>
 
 <script>
 export default {
-      data() {
-          return {
-        Groups:["Group A", "Group B", "Group C", "Group D","Group E","Group F"],
-        gruplar:[{ name:"Group A", teams:["ali","veli"]}],
-        pool1:["Italy","Spain","England","Belguim","Germany","Ukraine"],
-        pool2:["France","Holland","Crotia","Switzerland","Russia","Poland",],
-        pool3:["Turkey","Portugal","Denmark","Czech Republic","Sweeden","Autralia"],
-        pool4:["Finland","Wales","Play-Off 1","Play-Off 2","Play-Off 3","Play-Off 4"],
+  data() {
+    return {
+      
+        pool1:[],
+        pool2:[],
+        pool3:[],
+        pool4:[],
        GroupA:[],
        GroupB:[],
        GroupC:[],
@@ -116,11 +94,15 @@ export default {
        x:6,
        GroupE:[],
        GroupF:[],
-       show: false,
-       button:false
-}
-    },
-    methods:{
+       button:true,
+       title:true,
+       show:false
+
+    };
+  },
+
+
+  methods:{
         pool:function(){
             var vm=this
            var x=6
@@ -144,18 +126,19 @@ export default {
                 this.gropus(this.GroupF,1)
                
               }
+          
             
-          this.show=!this.show
-         
+          console.log("pool kullanıldı")
+
          
         },
         repool:function(){
             this.Groups=["Group A", "Group B", "Group C", "Group D","Group E","Group F"]
         this.gruplar=[{ name:"Group A", teams:["ali","veli"]}]
-        this.pool1=["Italy","Spain","England","Belguim","Germany","Ukraine"]
-        this.pool2=["France","Holland","Crotia","Switzerland","Russia","Poland",]
-        this.pool3=["Turkey","Portugal","Denmark","Czech Republic","Sweeden","Autralia"]
-        this.pool4=["Finland","Wales","Play-Off 1","Play-Off 2","Play-Off 3","Play-Off 4"]
+        this.pool1=[]
+        this.pool2=[]
+        this.pool3=[]
+        this.pool4=[]
        this.GroupA=[]
        this.GroupB=[]
        this.GroupC=[]
@@ -163,9 +146,9 @@ export default {
        this.GroupE=[]
        this.GroupF=[]
    
-   
-       this.show=!this.show
-        },
+     this.title=true
+     console.log("repool kullanıldı"+this.title)
+         },
       
      
         gropus:function(value,b){
@@ -179,7 +162,6 @@ export default {
                  value.push(this.pool3[deletid3])
                  value.push(this.pool4[deletid4])
                 this.delete(this.pool1,this.pool2,this.pool3,this.pool4,deletid,deletid2,deletid3,deletid4)
-                 this.show=!this.show 
         },
             delete:function(value,value2,value3,value4,deletid,deletid2,deletid3,deletid4){
             this.$delete(value,deletid)
@@ -187,9 +169,7 @@ export default {
                   this.$delete(value3,deletid3)
                   this.$delete(value4,deletid4)
         },
-       
-
-    }
-}
+  }
+};
 </script>
 
